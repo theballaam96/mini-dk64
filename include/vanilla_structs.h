@@ -4,8 +4,30 @@ typedef struct floatPos {
 	/* 0x008 */ f32 zPos;
 } floatPos;
 
-typedef struct actorData {
+typedef struct bone_array {
 	/* 0x000 */ s8 unk_00[0x58];
+	/* 0x058 */ s16 xPos;
+	/* 0x05A */ s16 yPos;
+	/* 0x05C */ s16 zPos;
+} bone_array;
+
+typedef struct rendering_params {
+	/* 0x000 */ s8 unk_00[0x14];
+	/* 0x014 */ bone_array* bone_array1;
+	/* 0x018 */ bone_array* bone_array2;
+	/* 0x01C */ s8 unk_1C[0x34 - 0x1C];
+	/* 0x034 */ f32 scale[3];
+} rendering_params;
+
+typedef struct BLockerCheatStruct {
+	/* 0x000 */ u8 requirement;
+	/* 0x001 */ s8 kong;
+} BLockerCheatStruct;
+
+typedef struct actorData {
+	/* 0x000 */ s8 unk_00[0x4];
+	/* 0x004 */ rendering_params *render;
+	/* 0x008 */ s8 unk_08[0x58 - 0x8];
 	/* 0x058 */ s32 actorType;
 	/* 0x05C */ s8 unk_5C[0x7C-0x5C];
 	/* 0x07C */ f32 xPos;
@@ -36,21 +58,6 @@ typedef struct cameraData {
 	/* 0x22C */ s8 unk_22C[0x26B-0x22C];
 	/* 0x26B */ s8 camera_state;
 } cameraData;
-
-typedef struct bone_array {
-	/* 0x000 */ s8 unk_00[0x58];
-	/* 0x058 */ s16 xPos;
-	/* 0x05A */ s16 yPos;
-	/* 0x05C */ s16 zPos;
-} bone_array;
-
-typedef struct rendering_params {
-	/* 0x000 */ s8 unk_00[0x14];
-	/* 0x014 */ bone_array* bone_array1;
-	/* 0x018 */ bone_array* bone_array2;
-	/* 0x01C */ s8 unk_1C[0x34 - 0x1C];
-	/* 0x034 */ f32 scale[3];
-} rendering_params;
 
 typedef struct playerData {
 	/* 0x000 */ s8 unk_00[0x4];

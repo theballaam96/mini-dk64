@@ -1,5 +1,5 @@
 .n64
-.open "rom/dk64-newhack-dev.z64", 0
+.open "rom/dk64-mini.z64", 0
 
 .include "asm/symbols.asm" ; Tell armips' linker where to find the game's function(s)
 

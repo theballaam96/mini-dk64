@@ -52,6 +52,14 @@ extern s32 __osGetThreadId(void* thread);
 extern void setAction(int action, void* actor, int player_index);
 extern void handlePoleGrabbing(void* actor, int player_index, int allow_vines);
 
+extern int getSongTempo(void *player);
+extern unsigned char SongInWriteSlot[4];
+extern ALCSPlayer* compactSequencePlayers[4];
+extern ALCMidiHdr* musicStorage[4];
+extern short BossReqArray[8];
+extern short BLockerArray[8];
+extern BLockerCheatStruct BLockerCheatArray[8];
+
 // Vanilla data
 extern f32 TransitionSpeed;
 extern s8 CutsceneWillPlay;

@@ -240,6 +240,15 @@
 .definelabel getActorSpawnerIDFromTiedActor, 0x80688E68
 .definelabel textOverlayCode, 0x8069DA54
 
+.definelabel alCSPSetTempo, 0x80738320
+.definelabel getSongTempo, 0x807383B0
+.definelabel SongInWriteSlot, 0x80770560
+.definelabel compactSequencePlayers, 0x8076BF20
+.definelabel musicStorage, 0x8076BF38
+.definelabel BossReqArray, 0x807446C0
+.definelabel BLockerArray, 0x807446D0
+.definelabel BLockerCheatArray, 0x807446E0
+
 ; Vanilla data
 .definelabel TransitionSpeed, 0x807FD88C
 .definelabel CutsceneWillPlay, 0x8075533B
