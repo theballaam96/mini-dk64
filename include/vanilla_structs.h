@@ -48,6 +48,8 @@ typedef struct rendering_params {
 	/* 0x000 */ s8 unk_00[0x14];
 	/* 0x014 */ bone_array* bone_array1;
 	/* 0x018 */ bone_array* bone_array2;
+	/* 0x01C */ s8 unk_1C[0x34 - 0x1C];
+	/* 0x034 */ f32 scale[3];
 } rendering_params;
 
 typedef struct playerData {
