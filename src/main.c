@@ -7,13 +7,13 @@
 #define VERSION 0
 
 #if VERSION == 0
-	#define MAX_SIZE 4.5f
+	#define MAX_SIZE 0.6f
 	#define MIN_SIZE 0.05f
-	#define CB_MAX 3500
+	#define CB_MAX 500
 #else
-	#define MAX_SIZE 1.5f
+	#define MAX_SIZE 0.45f
 	#define MIN_SIZE 0.03f
-	#define CB_MAX 3500
+	#define CB_MAX 500
 #endif
 static short actors_to_shrink[] = {
 	2, 3, 4, 5, 6,  // Kongs
@@ -39,7 +39,9 @@ static short file_init_flags[] = {
 	0x186,
 	0,
 	385, // Free DK
+	50, // Free Llama
 };
+static float scale = 0.15f;
 
 int isShrinkActor(actorData *test_actor) {
 	for (int i = 0; i < sizeof(actors_to_shrink) >> 1; i++) {
@@ -69,29 +71,35 @@ void cFuncLoop(void) {
 		CB Scaling
 		Min Size: 0.01 - 0 CBs
 		Normal Size: 0.15 - 100 CBs
-		Max Size: 1.5 - 3500 CBs
+		Max Size: 1.5 - 500 CBs
 	*/
-	int cb_count = 0;
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 7; j++) {
-			cb_count += MovesBase[i].cb_count[j];
-		}
+	int world = getWorld(CurrentMap, 1);
+	if (CurrentMap == 0x50) {
+		world = 0;
 	}
-	int delta = CB_MAX - cb_count;
-	float quad = delta * delta;
-	float ratio = ((float)MAX_SIZE) / ((float)(CB_MAX * CB_MAX));
-	float dec = ratio * quad;
-	float scale = (MAX_SIZE + MIN_SIZE) - dec;
-	for (int a = 0; a < LoadedActorCount; a++) {
-		actorData *actor = LoadedActorArray[a].actor;
-		if (isShrinkActor(actor)) {
-			rendering_params *render = actor->render;
-			if (render) {
-				for (int i = 0; i < 3; i++) {
-					render->scale[i] = scale;
-				}
+	if (world < 7) {
+		int cb_count = 0;
+		for (int i = 0; i < 5; i++) {
+			cb_count += MovesBase[i].cb_count[world];
+		}
+		float ratio = ((float)cb_count) / ((float)CB_MAX);
+		float delta = MAX_SIZE - MIN_SIZE;
+		scale = MIN_SIZE + (ratio * delta);
+	}
+	if (ObjectModel2Timer > 2) {
+		if ((!CutsceneActive) || (CutsceneIndex != 29)) {
+			for (int a = 0; a < LoadedActorCount; a++) {
+				actorData *actor = LoadedActorArray[a].actor;
+				if (isShrinkActor(actor)) {
+					rendering_params *render = actor->render;
+					if (render) {
+						for (int i = 0; i < 3; i++) {
+							render->scale[i] = scale;
+						}
+					}
+				}		
 			}
-		}		
+		}
 	}
 	StorySkip = 1;
 	if ((CurrentMap == 0x50) && (DestMap != 0x50) && (Mode == 6)) {
